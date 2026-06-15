@@ -1,0 +1,60 @@
+package com.dhaliwal.hospitalManagement.entity;
+
+import com.dhaliwal.hospitalManagement.entity.type.BloodGroupType;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+@Entity
+@ToString
+@Getter
+@Setter
+@Table(
+        name = "patient",
+        uniqueConstraints = {
+//                @UniqueConstraint(name = "unique_patient_email", columnNames = {"email"}),
+                @UniqueConstraint(name = "unique_patient_name_birthdate", columnNames = {"name", "birthDate"})
+        },
+        indexes = {
+                @Index(name = "idx_patient_birth_date", columnList = "birthDate")
+        }
+)
+public class Patient {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, length = 40)
+    private String name;
+
+    @Column(nullable = false)
+    private LocalDate birthDate;
+
+    @Column(unique = true, nullable = false)
+    private String email;
+
+    private String gender;
+
+    @CreationTimestamp
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
+
+    @Enumerated(EnumType.STRING)
+    private BloodGroupType bloodGroup;
+
+    @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true) // owning side
+    @JoinColumn()
+    private Insurance insurance;
+
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.REMOVE, orphanRemoval = true,  fetch = FetchType.EAGER)
+    private Set<Appointment> appointments = new HashSet<>();
+}
