@@ -22,5 +22,5 @@ public class PatientRequestDto {
 
     private BloodGroupType bloodGroupType;
 
-    private InsuranceRequestDto insuranceRequest;
+    private InsuranceRequestDto insurance;
 }

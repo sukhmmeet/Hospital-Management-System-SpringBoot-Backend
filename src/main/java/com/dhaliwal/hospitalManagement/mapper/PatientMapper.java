@@ -15,7 +15,7 @@ import java.util.Set;
 @Component
 @RequiredArgsConstructor
 public class PatientMapper {
-    private final DoctorMapperForPatientAndAppointment doctorMapper;
+    private final DoctorMapperWithoutAppointmentAndDept doctorMapper;
     private final InsuranceMapper insuranceMapper;
     private final AppointmentMapperForPatient appointmentMapper;
     public PatientResponseDto toDto(Patient patient) {
@@ -43,9 +43,8 @@ public class PatientMapper {
         patient.setGender(dto.getGender());
         patient.setBirthDate(dto.getBirthDate());
         patient.setBloodGroup(dto.getBloodGroupType());
-        if(dto.getInsuranceRequest() != null) {
-            Insurance insurance = insuranceMapper.toEntity(dto.getInsuranceRequest());
-
+        if(dto.getInsurance() != null) {
+            Insurance insurance = insuranceMapper.toEntity(dto.getInsurance());
             insurance.setPatient(patient);
             patient.setInsurance(insurance);
         }

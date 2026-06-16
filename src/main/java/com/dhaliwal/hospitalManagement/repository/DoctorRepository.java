@@ -23,4 +23,8 @@ LEFT JOIN FETCH d.departments
 LEFT JOIN FETCH d.appointments
 """)
     List<Doctor> findAllDoctors();
+
+    @Query("SELECT d FROM Doctor d WHERE LOWER(d.name) LIKE LOWER(CONCAT('%', :name, '%'))")
+    List<Doctor> searchDoctorByName(@Param("name") String name);
+
 }

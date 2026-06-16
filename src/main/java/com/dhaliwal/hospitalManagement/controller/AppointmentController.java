@@ -10,56 +10,66 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/admin")
+@RequestMapping("/admin/appointments")
 public class AppointmentController {
 
     private final AppointmentService appointmentService;
 
-    @GetMapping("/appointments")
+
+    @GetMapping
     public List<AppointmentResponseDto> getAllAppointments() {
         return appointmentService.getAllAppointments();
     }
 
-    @GetMapping("/appointment/{id}")
+
+    @GetMapping("/{id}")
     public AppointmentResponseDto getAppointmentById(
             @PathVariable Long id
     ) {
         return appointmentService.getAppointmentById(id);
     }
 
-    @PostMapping("/appointment")
+
+    @PostMapping
     public AppointmentResponseDto createAppointment(
             @RequestBody AppointmentRequestDto dto
     ) {
         return appointmentService.createNewAppointment(dto);
     }
 
-    @GetMapping("/appointment/reassign/{id}")
+
+    @PatchMapping("/{id}/doctor/{doctorId}")
     public AppointmentResponseDto reAssignDoctor(
             @PathVariable Long id,
-            @RequestParam Long doctorId
+            @PathVariable Long doctorId
     ) {
-        return appointmentService
-                .reAssignAppointmentToAnotherDoctor(id, doctorId);
+        return appointmentService.reAssignAppointmentToAnotherDoctor(
+                id, doctorId
+        );
     }
 
-    @GetMapping("/appointments/patient/{id}")
-    public List<AppointmentResponseDto> getAppointmentsByPatient(
-            @PathVariable Long id
+
+    @GetMapping("/patient/{patientId}")
+    public List<AppointmentResponseDto> getByPatient(
+            @PathVariable Long patientId
     ) {
-        return appointmentService.getAppointmentsByPatientId(id);
+        return appointmentService.getAppointmentsByPatientId(patientId);
     }
 
-    @GetMapping("/appointments/doctor/{id}")
-    public List<AppointmentResponseDto> getAppointmentsByDoctor(
-            @PathVariable Long id
+
+    @GetMapping("/doctor/{doctorId}")
+    public List<AppointmentResponseDto> getByDoctor(
+            @PathVariable Long doctorId
     ) {
-        return appointmentService.getAppointmentsByDoctorId(id);
+        return appointmentService.getAppointmentsByDoctorId(doctorId);
     }
-    @DeleteMapping("/appointment/{id}")
-    public void deleteAppointment(
+
+
+    @DeleteMapping("/{id}")
+    public String deleteAppointment(
             @PathVariable Long id
     ) {
         appointmentService.deleteAppointmentById(id);
+        return "Appointment deleted Successfully";
     }
 }

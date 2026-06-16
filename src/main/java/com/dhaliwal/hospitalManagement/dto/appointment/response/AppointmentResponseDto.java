@@ -1,6 +1,6 @@
 package com.dhaliwal.hospitalManagement.dto.appointment.response;
 
-import com.dhaliwal.hospitalManagement.dto.patient.response.DoctorResponseDto;
+import com.dhaliwal.hospitalManagement.dto.patient.response.DoctorResponseDtoWithoutAppointmentAndDept;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -20,5 +20,5 @@ public class AppointmentResponseDto {
 
     private PatientResponseDto patient;
 
-    private DoctorResponseDto doctor;
+    private DoctorResponseDtoWithoutAppointmentAndDept doctor;
 }

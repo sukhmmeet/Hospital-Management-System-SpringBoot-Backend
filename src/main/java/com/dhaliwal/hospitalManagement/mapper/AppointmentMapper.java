@@ -11,7 +11,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Component
 public class AppointmentMapper {
-    private final DoctorMapperForPatientAndAppointment doctorMapper;
+    private final DoctorMapperWithoutAppointmentAndDept doctorMapper;
     private final PatientMapperForAppointment patientMapper;
     public AppointmentResponseDto toDto(Appointment appointment) {
         AppointmentResponseDto dto = new AppointmentResponseDto();

@@ -1,20 +1,14 @@
-package com.dhaliwal.hospitalManagement.dto.patient.response;
+package com.dhaliwal.hospitalManagement.dto.open.response;
 
 import lombok.*;
-import java.time.LocalDate;
-import java.util.Set;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class DoctorResponseDto {
     private Long id;
-
     private String name;
-
     private String specialization;
-
-    private String email;
 }

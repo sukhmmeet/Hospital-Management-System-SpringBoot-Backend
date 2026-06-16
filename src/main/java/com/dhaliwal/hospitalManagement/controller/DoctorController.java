@@ -14,26 +14,31 @@ import java.util.List;
 @RequestMapping("/admin")
 public class DoctorController {
 
-    private final DoctorService  doctorService;
+    private final DoctorService doctorService;
 
-    @PostMapping("/doctor")
-    public DoctorResponseDto createDoctor(@RequestBody DoctorRequestDto dto) {
+    @PostMapping("/doctors")
+    public DoctorResponseDto create(@RequestBody DoctorRequestDto dto){
         return doctorService.createDoctor(dto);
     }
-    @PatchMapping("/doctor")
-    public DoctorResponseDto updateDoctor(@RequestParam Long id,@RequestBody DoctorRequestDto dto) {
-        return doctorService.updateDoctor(id, dto);
+
+    @PatchMapping("/doctors/{id}")
+    public DoctorResponseDto update(@PathVariable Long id,@RequestBody DoctorRequestDto dto){
+        return doctorService.updateDoctor(id,dto);
     }
-    @GetMapping("/doctor/{id}")
-    public DoctorResponseDto getDoctor(@PathVariable Long id) {
+
+    @GetMapping("/doctors/{id}")
+    public DoctorResponseDto get(@PathVariable Long id){
         return doctorService.getDoctorById(id);
     }
+
     @GetMapping("/doctors")
-    public List<DoctorResponseDto> getDoctors() {
+    public List<DoctorResponseDto> getAll(){
         return doctorService.getAllDoctors();
     }
-    @DeleteMapping("/doctor/{id}")
-    public void deleteDoctor(@PathVariable Long id) {
+
+    @DeleteMapping("/doctors/{id}")
+    public String delete(@PathVariable Long id){
         doctorService.deleteDoctor(id);
+        return "Doctor deleted";
     }
 }

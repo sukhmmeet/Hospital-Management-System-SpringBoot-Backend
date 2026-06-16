@@ -14,6 +14,11 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(
+        uniqueConstraints = {
+                @UniqueConstraint(name = "unique_department_name", columnNames = "name")
+        }
+)
 public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +31,15 @@ public class Department {
     @JoinColumn(nullable = false)
     private Doctor headDoctor;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     private Set<Doctor> doctors = new HashSet<>();
+
+    public void addDoctor(Doctor doctor) {
+        if(doctors.add(doctor)) {
+            doctor.getDepartments().add(this);
+        }
+    }
+    public void removeDoctor(Doctor doctor) {
+        doctors.remove(doctor);
+    }
 }

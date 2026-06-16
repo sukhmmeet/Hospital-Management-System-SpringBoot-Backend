@@ -17,5 +17,5 @@ public class AppointmentResponseDto {
 
     private String reason;
 
-    private DoctorResponseDto doctor;
+    private DoctorResponseDtoWithoutAppointmentAndDept doctor;
 }

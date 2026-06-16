@@ -58,7 +58,7 @@ public class PatientService {
         patient.setEmail(dto.getEmail());
 
 
-        if (dto.getInsuranceRequest() != null) {
+        if (dto.getInsurance() != null) {
 
             Insurance insurance = patient.getInsurance();
 
@@ -68,15 +68,15 @@ public class PatientService {
             }
 
             insurance.setPolicyNumber(
-                    dto.getInsuranceRequest().getPolicyNumber()
+                    dto.getInsurance().getPolicyNumber()
             );
 
             insurance.setProvider(
-                    dto.getInsuranceRequest().getProvider()
+                    dto.getInsurance().getProvider()
             );
 
             insurance.setValidTill(
-                    dto.getInsuranceRequest().getValidTill()
+                    dto.getInsurance().getValidTill()
             );
 
             insurance.setPatient(patient);

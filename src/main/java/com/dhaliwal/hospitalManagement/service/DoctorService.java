@@ -34,18 +34,18 @@ public class DoctorService {
         doctor.setEmail(dto.getEmail());
         doctor.setSpecialization(dto.getSpecialization());
 
+        Doctor savedDoctor = doctorRepository.save(doctor);
+
         for (Long id : dto.getDepartmentIds()) {
 
             Department department = departmentRepository.findById(id)
                     .orElseThrow(() -> new RuntimeException("Department not found"));
 
-            doctor.getDepartments().add(department);
-            department.getDoctors().add(doctor); // maintain both sides
+            savedDoctor.getDepartments().add(department);
+            department.getDoctors().add(savedDoctor); // maintain both sides
         }
 
-        return doctorMapper.toDto(
-                doctorRepository.save(doctor)
-        );
+        return doctorMapper.toDto(savedDoctor);
     }
     @Transactional
     public DoctorResponseDto getDoctorById(Long id) {

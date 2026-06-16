@@ -5,7 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -32,4 +35,21 @@ public class Doctor {
 
     @OneToMany(mappedBy = "doctor", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private Set<Appointment> appointments = new HashSet<>();
+
+    public void addDepartment(Department department) {
+        if(departments.add(department)) {
+            department.getDoctors().add(this);
+        }
+    }
+    public List<String> getDepartmentNames(){
+        List<String> departmentNames = new ArrayList<>();
+        for (Department department : departments) {
+            departmentNames.add(department.getName());
+        }
+        return departmentNames;
+    }
+    public void removeDepartment(Department department) {
+        departments.remove(department);
+        department.getDoctors().remove(this);
+    }
 }

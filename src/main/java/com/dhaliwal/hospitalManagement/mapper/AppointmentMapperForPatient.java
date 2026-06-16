@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class AppointmentMapperForPatient {
-    private final DoctorMapperForPatientAndAppointment doctorMapper;
+    private final DoctorMapperWithoutAppointmentAndDept doctorMapper;
     public AppointmentResponseDto toDto(Appointment appointment) {
         AppointmentResponseDto dto = new AppointmentResponseDto();
         dto.setId(appointment.getId());

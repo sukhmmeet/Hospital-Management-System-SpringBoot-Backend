@@ -12,26 +12,34 @@ import java.util.List;
 @RequestMapping("/admin")
 @RequiredArgsConstructor
 public class PatientController {
+
     private final PatientService patientService;
 
-    @PostMapping("/patient")
-    public PatientResponseDto createPatient(@RequestBody PatientRequestDto dto) {
+    @PostMapping("/patients")
+    public PatientResponseDto create(@RequestBody PatientRequestDto dto){
         return patientService.createPatient(dto);
     }
-    @GetMapping("/patient/{id}")
-    public PatientResponseDto getPatientById(@PathVariable long id) {
+
+    @GetMapping("/patients/{id}")
+    public PatientResponseDto get(@PathVariable Long id){
         return patientService.getPatientById(id);
     }
+
     @GetMapping("/patients")
-    public List<PatientResponseDto> getAllPatients() {
+    public List<PatientResponseDto> getAll(){
         return patientService.getAllPatients();
     }
-    @PatchMapping("/patient")
-    public PatientResponseDto updatePatient(@RequestParam Long id,@RequestBody PatientRequestDto dto) {
-        return patientService.updatePatient(id, dto);
+
+    @PatchMapping("/patients/{id}")
+    public PatientResponseDto update(
+            @PathVariable Long id,
+            @RequestBody PatientRequestDto dto){
+        return patientService.updatePatient(id,dto);
     }
-    @DeleteMapping("/patient/{id}")
-    public void deletePatientById(@PathVariable long id) {
+
+    @DeleteMapping("/patients/{id}")
+    public String delete(@PathVariable Long id){
         patientService.deletePatient(id);
+        return "Patient deleted";
     }
 }
