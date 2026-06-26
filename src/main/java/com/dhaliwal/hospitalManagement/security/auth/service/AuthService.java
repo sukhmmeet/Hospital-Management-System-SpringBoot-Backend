@@ -3,7 +3,7 @@ package com.dhaliwal.hospitalManagement.security.auth.service;
 import com.dhaliwal.hospitalManagement.entity.User;
 import com.dhaliwal.hospitalManagement.entity.type.AuthProviderType;
 import com.dhaliwal.hospitalManagement.repository.UserRepository;
-import com.dhaliwal.hospitalManagement.security.jwt.AuthUtil;
+import com.dhaliwal.hospitalManagement.security.AuthUtil;
 import com.dhaliwal.hospitalManagement.security.auth.dto.LoginRequestDto;
 import com.dhaliwal.hospitalManagement.security.auth.dto.LoginResponseDto;
 import com.dhaliwal.hospitalManagement.security.auth.dto.SignupRequestDto;

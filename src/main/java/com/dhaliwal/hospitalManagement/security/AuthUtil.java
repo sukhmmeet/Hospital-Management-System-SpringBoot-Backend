@@ -1,4 +1,4 @@
-package com.dhaliwal.hospitalManagement.security.jwt;
+package com.dhaliwal.hospitalManagement.security;
 
 import com.dhaliwal.hospitalManagement.entity.User;
 import com.dhaliwal.hospitalManagement.entity.type.AuthProviderType;
