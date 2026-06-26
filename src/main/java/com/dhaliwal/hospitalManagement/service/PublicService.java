@@ -32,4 +32,8 @@ public class PublicService {
     public List<DepartmentResponseDto> getAllDepartments() {
         return departmentRepository.findAll().stream().map(departmentMapper::toDto).collect(Collectors.toList());
     }
+
+    public List<DoctorResponseDto> getAllDoctors() {
+        return doctorRepository.findAll().stream().map(doctorMapper::toDto).collect(Collectors.toList());
+    }
 }

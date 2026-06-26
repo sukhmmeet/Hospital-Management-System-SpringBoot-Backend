@@ -21,6 +21,10 @@ public class PublicController {
     public List<DoctorResponseDto> searchDoctorByName(@Param("name") String name){
         return publicService.searchDoctorByName(name);
     }
+    @GetMapping("/doctors")
+    public List<DoctorResponseDto> allDoctors(){
+        return publicService.getAllDoctors();
+    }
     @GetMapping("/departments")
     public List<DepartmentResponseDto> getAllDepartments() {
         return publicService.getAllDepartments();
