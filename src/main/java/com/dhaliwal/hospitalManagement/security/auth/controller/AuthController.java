@@ -1,13 +1,12 @@
-package com.dhaliwal.hospitalManagement.controller;
+package com.dhaliwal.hospitalManagement.security.auth.controller;
 
-import com.dhaliwal.hospitalManagement.security.AuthService;
-import com.dhaliwal.hospitalManagement.security.dto.LoginRequestDto;
-import com.dhaliwal.hospitalManagement.security.dto.LoginResponseDto;
-import com.dhaliwal.hospitalManagement.security.dto.SignupRequestDto;
-import com.dhaliwal.hospitalManagement.security.dto.SignupResponseDto;
+import com.dhaliwal.hospitalManagement.security.auth.service.AuthService;
+import com.dhaliwal.hospitalManagement.security.auth.dto.LoginRequestDto;
+import com.dhaliwal.hospitalManagement.security.auth.dto.LoginResponseDto;
+import com.dhaliwal.hospitalManagement.security.auth.dto.SignupRequestDto;
+import com.dhaliwal.hospitalManagement.security.auth.dto.SignupResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

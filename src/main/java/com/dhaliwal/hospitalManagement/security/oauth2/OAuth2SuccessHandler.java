@@ -1,7 +1,7 @@
-package com.dhaliwal.hospitalManagement.security;
+package com.dhaliwal.hospitalManagement.security.oauth2;
 
-import com.dhaliwal.hospitalManagement.security.dto.LoginResponseDto;
-import jakarta.servlet.ServletException;
+import com.dhaliwal.hospitalManagement.security.auth.dto.LoginResponseDto;
+import com.dhaliwal.hospitalManagement.security.auth.service.AuthService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

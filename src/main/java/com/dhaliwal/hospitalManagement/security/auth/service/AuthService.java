@@ -1,12 +1,13 @@
-package com.dhaliwal.hospitalManagement.security;
+package com.dhaliwal.hospitalManagement.security.auth.service;
 
 import com.dhaliwal.hospitalManagement.entity.User;
 import com.dhaliwal.hospitalManagement.entity.type.AuthProviderType;
 import com.dhaliwal.hospitalManagement.repository.UserRepository;
-import com.dhaliwal.hospitalManagement.security.dto.LoginRequestDto;
-import com.dhaliwal.hospitalManagement.security.dto.LoginResponseDto;
-import com.dhaliwal.hospitalManagement.security.dto.SignupRequestDto;
-import com.dhaliwal.hospitalManagement.security.dto.SignupResponseDto;
+import com.dhaliwal.hospitalManagement.security.jwt.AuthUtil;
+import com.dhaliwal.hospitalManagement.security.auth.dto.LoginRequestDto;
+import com.dhaliwal.hospitalManagement.security.auth.dto.LoginResponseDto;
+import com.dhaliwal.hospitalManagement.security.auth.dto.SignupRequestDto;
+import com.dhaliwal.hospitalManagement.security.auth.dto.SignupResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;

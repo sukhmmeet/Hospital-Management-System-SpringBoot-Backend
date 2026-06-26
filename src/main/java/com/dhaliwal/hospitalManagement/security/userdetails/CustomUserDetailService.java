@@ -1,4 +1,4 @@
-package com.dhaliwal.hospitalManagement.security;
+package com.dhaliwal.hospitalManagement.security.userdetails;
 
 import com.dhaliwal.hospitalManagement.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

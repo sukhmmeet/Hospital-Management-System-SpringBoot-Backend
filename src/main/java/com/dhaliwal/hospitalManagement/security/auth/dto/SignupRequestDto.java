@@ -1,4 +1,4 @@
-package com.dhaliwal.hospitalManagement.security.dto;
+package com.dhaliwal.hospitalManagement.security.auth.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,8 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SignupResponseDto {
-    private Long id;
+public class SignupRequestDto {
     private String username;
-    private String jwt;
+    private String password;
 }

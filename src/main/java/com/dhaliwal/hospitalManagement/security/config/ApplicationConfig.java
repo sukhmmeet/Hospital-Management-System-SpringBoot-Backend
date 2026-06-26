@@ -1,4 +1,4 @@
-package com.dhaliwal.hospitalManagement.config;
+package com.dhaliwal.hospitalManagement.security.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

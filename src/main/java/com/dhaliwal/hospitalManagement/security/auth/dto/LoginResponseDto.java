@@ -1,4 +1,4 @@
-package com.dhaliwal.hospitalManagement.security.dto;
+package com.dhaliwal.hospitalManagement.security.auth.dto;
 
 import lombok.*;
 
