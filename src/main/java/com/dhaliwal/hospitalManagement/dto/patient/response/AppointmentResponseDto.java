@@ -1,5 +1,6 @@
 package com.dhaliwal.hospitalManagement.dto.patient.response;
 
+import com.dhaliwal.hospitalManagement.entity.type.AppointmentStatus;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -16,6 +17,8 @@ public class AppointmentResponseDto {
     private LocalDateTime appointmentTime;
 
     private String reason;
+
+    private AppointmentStatus status;
 
     private DoctorResponseDtoWithoutAppointmentAndDept doctor;
 }

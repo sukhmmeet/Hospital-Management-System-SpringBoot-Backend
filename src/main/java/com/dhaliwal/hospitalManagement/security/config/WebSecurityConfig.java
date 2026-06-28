@@ -11,6 +11,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import static com.dhaliwal.hospitalManagement.entity.type.RoleType.*;
+
 @Configuration
 @RequiredArgsConstructor
 @Slf4j
@@ -28,13 +30,28 @@ public class WebSecurityConfig {
                                 sessionConfig.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                         )
                 .authorizeHttpRequests(auth -> auth
+
+                        // public
                         .requestMatchers("/auth/**").permitAll()
-//
-//                        .requestMatchers("/admin/doctors/**")
-//                        .hasAnyRole("ADMIN", "DOCTOR")
-//
-//                        .requestMatchers("/admin/**")
-//                        .hasRole("ADMIN")
+                        .requestMatchers("/public/**").permitAll()
+
+                        // admin
+                        .requestMatchers("/admin/**")
+                        .hasRole(ADMIN.name())
+
+                        // doctor
+                        .requestMatchers("/doctor/**")
+                        .hasAnyRole(
+                                ADMIN.name(),
+                                DOCTOR.name()
+                        )
+
+                        // patient
+                        .requestMatchers("/patient/**")
+                        .hasAnyRole(
+                                ADMIN.name(),
+                                PATIENT.name()
+                        )
 
                         .anyRequest()
                         .authenticated()

@@ -1,5 +1,6 @@
 package com.dhaliwal.hospitalManagement.entity;
 
+import com.dhaliwal.hospitalManagement.entity.type.AppointmentStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -32,6 +33,10 @@ public class Appointment {
     @JoinColumn(name = "doctor_id", nullable = false)
     @ToString.Exclude
     private Doctor doctor;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private AppointmentStatus status;
 
     public void setDoctor(Doctor doctor) {
         this.doctor = doctor;

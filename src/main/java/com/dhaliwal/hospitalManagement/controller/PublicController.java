@@ -4,29 +4,46 @@ import com.dhaliwal.hospitalManagement.dto.open.response.DepartmentResponseDto;
 import com.dhaliwal.hospitalManagement.dto.open.response.DoctorResponseDto;
 import com.dhaliwal.hospitalManagement.service.PublicService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.repository.query.Param;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/public")
 public class PublicController {
+
+
     private final PublicService publicService;
 
-    @GetMapping("/doctors/search")
-    public List<DoctorResponseDto> searchDoctorByName(@Param("name") String name){
-        return publicService.searchDoctorByName(name);
-    }
+
     @GetMapping("/doctors")
-    public List<DoctorResponseDto> allDoctors(){
-        return publicService.getAllDoctors();
+    public ResponseEntity<List<DoctorResponseDto>> getAllDoctors() {
+
+        return ResponseEntity.ok(
+                publicService.getAllDoctors()
+        );
     }
+
+
+    @GetMapping("/doctors/search")
+    public ResponseEntity<List<DoctorResponseDto>> searchDoctors(
+            @RequestParam String name
+    ) {
+
+        return ResponseEntity.ok(
+                publicService.searchDoctorByName(name)
+        );
+    }
+
+
     @GetMapping("/departments")
-    public List<DepartmentResponseDto> getAllDepartments() {
-        return publicService.getAllDepartments();
+    public ResponseEntity<List<DepartmentResponseDto>> getAllDepartments() {
+
+        return ResponseEntity.ok(
+                publicService.getAllDepartments()
+        );
     }
 }

@@ -14,6 +14,7 @@ public class DoctorMapperForPublic {
         doctorResponseDto.setId(doctor.getId());
         doctorResponseDto.setName(doctor.getName());
         doctorResponseDto.setSpecialization( doctor.getSpecialization() );
+        doctorResponseDto.setEmail(doctor.getEmail());
         return doctorResponseDto;
     }
     public List<DoctorResponseDto> toDto(List<Doctor> doctors) {

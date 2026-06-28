@@ -6,6 +6,8 @@ import com.dhaliwal.hospitalManagement.dto.department.response.DepartmentRespons
 import com.dhaliwal.hospitalManagement.dto.department.response.DoctorResponseWithDeptDto;
 import com.dhaliwal.hospitalManagement.service.DepartmentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -13,44 +15,90 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/admin/departments")
 public class DepartmentController {
 
+
     private final DepartmentService departmentService;
 
+
     @PostMapping
-    public DepartmentResponseDto create(@RequestBody DepartmentRequestDto dto){
-        return departmentService.addDepartment(dto);
+    public ResponseEntity<DepartmentResponseDto> create(
+            @RequestBody DepartmentRequestDto dto
+    ) {
+
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(
+                        departmentService.addDepartment(dto)
+                );
     }
+
 
     @PostMapping("/{departmentId}/doctors/{doctorId}")
-    public DoctorResponseWithDeptDto addDoctor(
+    public ResponseEntity<DoctorResponseWithDeptDto> addDoctor(
             @PathVariable Long departmentId,
-            @PathVariable Long doctorId){
-        return departmentService.addDoctorToDept(doctorId, departmentId);
+            @PathVariable Long doctorId
+    ) {
+
+        return ResponseEntity.ok(
+                departmentService.addDoctorToDept(
+                        doctorId,
+                        departmentId
+                )
+        );
     }
+
 
     @DeleteMapping("/{departmentId}/doctors/{doctorId}")
-    public DoctorResponseWithDeptDto removeDoctor(
+    public ResponseEntity<DoctorResponseWithDeptDto> removeDoctor(
             @PathVariable Long departmentId,
-            @PathVariable Long doctorId){
-        return departmentService.removeDoctorFromDept(doctorId, departmentId);
+            @PathVariable Long doctorId
+    ) {
+
+        return ResponseEntity.ok(
+                departmentService.removeDoctorFromDept(
+                        doctorId,
+                        departmentId
+                )
+        );
     }
+
 
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable Long id){
+    public ResponseEntity<Void> delete(
+            @PathVariable Long id
+    ) {
+
         departmentService.deleteDepartment(id);
-        return "Department deleted";
+
+        return ResponseEntity.noContent().build();
     }
+
 
     @PatchMapping("/{id}/name")
-    public DepartmentResponseDto updateName(
+    public ResponseEntity<DepartmentResponseDto> updateName(
             @PathVariable Long id,
-            @RequestBody UpdateDepartmentRequestDto dto){
-        return departmentService.updateDepartmentName(id, dto);
+            @RequestBody UpdateDepartmentRequestDto dto
+    ) {
+
+        return ResponseEntity.ok(
+                departmentService.updateDepartmentName(
+                        id,
+                        dto
+                )
+        );
     }
 
+
     @PatchMapping("/{departmentId}/head-doctor/{doctorId}")
-    public DepartmentResponseDto updateHead(
+    public ResponseEntity<DepartmentResponseDto> updateHeadDoctor(
             @PathVariable Long departmentId,
-            @PathVariable Long doctorId){
-        return departmentService.updateDepartmentHead(departmentId, doctorId);
+            @PathVariable Long doctorId
+    ) {
+
+        return ResponseEntity.ok(
+                departmentService.updateDepartmentHead(
+                        departmentId,
+                        doctorId
+                )
+        );
     }
 }

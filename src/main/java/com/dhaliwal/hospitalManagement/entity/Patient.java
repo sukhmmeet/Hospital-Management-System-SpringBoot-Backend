@@ -2,9 +2,7 @@ package com.dhaliwal.hospitalManagement.entity;
 
 import com.dhaliwal.hospitalManagement.entity.type.BloodGroupType;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -20,13 +18,12 @@ import java.util.Set;
 @Table(
         name = "patient",
         uniqueConstraints = {
-//                @UniqueConstraint(name = "unique_patient_email", columnNames = {"email"}),
-                @UniqueConstraint(name = "unique_patient_name_birthdate", columnNames = {"name", "birthDate"})
-        },
-        indexes = {
-                @Index(name = "idx_patient_birth_date", columnList = "birthDate")
+                @UniqueConstraint(name = "unique_patient_email", columnNames = {"email"}),
         }
 )
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Patient {
 
     @Id
@@ -36,13 +33,17 @@ public class Patient {
     @Column(nullable = false, length = 40)
     private String name;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private LocalDate birthDate;
 
     @Column(unique = true, nullable = false)
     private String email;
 
     private String gender;
+
+    @OneToOne
+    @MapsId
+    private User user;
 
     @CreationTimestamp
     @Column(updatable = false)

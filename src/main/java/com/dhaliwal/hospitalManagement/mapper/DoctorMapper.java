@@ -30,6 +30,7 @@ public class DoctorMapper {
             AppointmentResponseDto dto = new AppointmentResponseDto();
             dto.setId(appointment.getId());
             dto.setReason(appointment.getReason());
+            dto.setStatus(appointment.getStatus());
             dto.setAppointmentTime(appointment.getAppointmentTime());
             dtos.add(dto);
         }

@@ -1,14 +1,19 @@
 package com.dhaliwal.hospitalManagement.service;
 
 import com.dhaliwal.hospitalManagement.dto.doctor.request.DoctorRequestDto;
+import com.dhaliwal.hospitalManagement.dto.doctor.request.OnBoardDoctorRequestDto;
 import com.dhaliwal.hospitalManagement.dto.doctor.response.DoctorResponseDto;
 import com.dhaliwal.hospitalManagement.entity.Appointment;
 import com.dhaliwal.hospitalManagement.entity.Department;
 import com.dhaliwal.hospitalManagement.entity.Doctor;
+import com.dhaliwal.hospitalManagement.entity.User;
+import com.dhaliwal.hospitalManagement.entity.type.RoleType;
 import com.dhaliwal.hospitalManagement.mapper.DoctorMapper;
 import com.dhaliwal.hospitalManagement.repository.AppointmentRepository;
 import com.dhaliwal.hospitalManagement.repository.DepartmentRepository;
 import com.dhaliwal.hospitalManagement.repository.DoctorRepository;
+import com.dhaliwal.hospitalManagement.repository.UserRepository;
+import com.dhaliwal.hospitalManagement.security.auth.service.CurrentUserService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,6 +29,9 @@ public class DoctorService {
     private final DoctorMapper doctorMapper;
     private final AppointmentRepository appointmentRepository;
     private final DepartmentRepository departmentRepository;
+    private final UserRepository userRepository;
+
+    private final CurrentUserService currentUserService;
 
     @Transactional
     public DoctorResponseDto createDoctor(DoctorRequestDto dto) {
@@ -88,5 +96,24 @@ public class DoctorService {
     @Transactional
     public void deleteDoctor(Long id) {
         doctorRepository.deleteById(id);
+    }
+
+    @Transactional
+    public DoctorResponseDto onBoardNewDoctor(OnBoardDoctorRequestDto dto) {
+        User user = userRepository.findById(dto.getUserId()).orElseThrow(() -> new RuntimeException("User not found with id: " + dto.getUserId()));
+
+        if(doctorRepository.findById(user.getId()).isPresent()) {
+            throw new RuntimeException("Doctor already exists");
+        }
+        Doctor doctor = Doctor.builder()
+                .name(dto.getName())
+                .email(dto.getEmail())
+                .specialization(dto.getSpecialization())
+                .user(user)
+                .build();
+
+        user.getRoles().add(RoleType.DOCTOR);
+
+        return doctorMapper.toDto(doctorRepository.save(doctor));
     }
 }

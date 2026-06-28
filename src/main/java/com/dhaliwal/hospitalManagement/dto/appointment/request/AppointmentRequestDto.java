@@ -15,7 +15,5 @@ public class AppointmentRequestDto {
 
     private String reason;
 
-    private long patientId;
-
     private long doctorId;
 }

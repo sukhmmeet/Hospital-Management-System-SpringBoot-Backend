@@ -1,10 +1,7 @@
 package com.dhaliwal.hospitalManagement.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -16,10 +13,15 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Builder
 public class Doctor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @MapsId
+    @OneToOne(fetch = FetchType.EAGER)
+    private User user;
 
     @Column(nullable = false, length = 100)
     private String name;
@@ -30,9 +32,11 @@ public class Doctor {
     @Column(nullable = false, length = 100, unique = true)
     private String email;
 
+    @Builder.Default
     @ManyToMany(mappedBy = "doctors", fetch = FetchType.LAZY)
     private Set<Department> departments = new HashSet<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "doctor", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private Set<Appointment> appointments = new HashSet<>();
 

@@ -2,44 +2,58 @@ package com.dhaliwal.hospitalManagement.controller;
 
 import com.dhaliwal.hospitalManagement.dto.patient.request.PatientRequestDto;
 import com.dhaliwal.hospitalManagement.dto.patient.response.PatientResponseDto;
+import com.dhaliwal.hospitalManagement.security.auth.service.CurrentUserService;
 import com.dhaliwal.hospitalManagement.service.PatientService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/patient")
 @RequiredArgsConstructor
 public class PatientController {
 
     private final PatientService patientService;
+    private final CurrentUserService currentUserService;
 
-    @PostMapping("/patients")
-    public PatientResponseDto create(@RequestBody PatientRequestDto dto){
-        return patientService.createPatient(dto);
+
+    @GetMapping
+    public ResponseEntity<PatientResponseDto> getPatientProfile() {
+
+        Long userId = currentUserService
+                .getCurrentUser()
+                .getId();
+
+        return ResponseEntity.ok(
+                patientService.getPatientById(userId)
+        );
     }
 
-    @GetMapping("/patients/{id}")
-    public PatientResponseDto get(@PathVariable Long id){
-        return patientService.getPatientById(id);
+
+    @PatchMapping
+    public ResponseEntity<PatientResponseDto> update(
+            @RequestBody PatientRequestDto dto
+    ) {
+
+        Long userId = currentUserService
+                .getCurrentUser()
+                .getId();
+
+        return ResponseEntity.ok(
+                patientService.updatePatient(userId, dto)
+        );
     }
 
-    @GetMapping("/patients")
-    public List<PatientResponseDto> getAll(){
-        return patientService.getAllPatients();
-    }
 
-    @PatchMapping("/patients/{id}")
-    public PatientResponseDto update(
-            @PathVariable Long id,
-            @RequestBody PatientRequestDto dto){
-        return patientService.updatePatient(id,dto);
-    }
+    @DeleteMapping
+    public ResponseEntity<Void> delete() {
 
-    @DeleteMapping("/patients/{id}")
-    public String delete(@PathVariable Long id){
-        patientService.deletePatient(id);
-        return "Patient deleted";
+        Long userId = currentUserService
+                .getCurrentUser()
+                .getId();
+
+        patientService.deletePatient(userId);
+
+        return ResponseEntity.noContent().build();
     }
 }
